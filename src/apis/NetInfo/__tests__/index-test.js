@@ -1,4 +1,4 @@
-/* eslint-env mocha */
+/* eslint-env jasmine, jest */
 
 import assert from 'assert';
 import NetInfo from '..';
@@ -13,20 +13,20 @@ suite('apis/NetInfo', () => {
 
     suite('addEventListener', () => {
       test('throws if the provided "eventType" is not supported', () => {
-        assert.throws(() => NetInfo.isConnected.addEventListener('foo', handler));
-        assert.doesNotThrow(() => NetInfo.isConnected.addEventListener('change', handler));
+        expect(() => NetInfo.isConnected.addEventListener('foo', handler)).toThrow();
+        expect(() => NetInfo.isConnected.addEventListener('change', handler)).not.toThrow();
       });
     });
 
     suite('removeEventListener', () => {
       test('throws if the handler is not registered', () => {
-        assert.throws(() => NetInfo.isConnected.removeEventListener('change', handler));
+        expect(() => NetInfo.isConnected.removeEventListener('change', handler)).toThrow;
       });
 
       test('throws if the provided "eventType" is not supported', () => {
         NetInfo.isConnected.addEventListener('change', handler);
-        assert.throws(() => NetInfo.isConnected.removeEventListener('foo', handler));
-        assert.doesNotThrow(() => NetInfo.isConnected.removeEventListener('change', handler));
+        expect(() => NetInfo.isConnected.removeEventListener('foo', handler)).toThrow;
+        expect(() => NetInfo.isConnected.removeEventListener('change', handler)).not.toThrow;
       });
     });
   });
