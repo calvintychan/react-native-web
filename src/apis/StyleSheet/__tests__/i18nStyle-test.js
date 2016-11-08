@@ -3,7 +3,7 @@
 import I18nManager from '../../I18nManager';
 import i18nStyle from '../i18nStyle';
 
-const initial = {
+const style = {
   borderLeftColor: 'red',
   borderRightColor: 'blue',
   borderTopLeftRadius: 10,
@@ -25,33 +25,11 @@ const initial = {
   writingDirection: 'ltr'
 };
 
-const initialNoI18n = Object.keys(initial).reduce((acc, prop) => {
+const styleNoI18n = Object.keys(style).reduce((acc, prop) => {
   const newProp = `${prop}$noI18n`;
-  acc[newProp] = initial[prop];
+  acc[newProp] = style[prop];
   return acc;
 }, {});
-
-const expected = {
-  borderLeftColor: 'blue',
-  borderRightColor: 'red',
-  borderTopLeftRadius: '1rem',
-  borderTopRightRadius: 10,
-  borderBottomLeftRadius: '2rem',
-  borderBottomRightRadius: 20,
-  borderLeftStyle: 'dotted',
-  borderRightStyle: 'solid',
-  borderLeftWidth: 6,
-  borderRightWidth: 5,
-  left: 2,
-  marginLeft: 8,
-  marginRight: 7,
-  paddingLeft: 10,
-  paddingRight: 9,
-  right: 1,
-  textAlign: 'right',
-  textShadowOffset: { width: '-1rem', height: 10 },
-  writingDirection: 'rtl'
-};
 
 describe('apis/StyleSheet/i18nStyle', () => {
   describe('LTR mode', () => {
@@ -63,11 +41,11 @@ describe('apis/StyleSheet/i18nStyle', () => {
       I18nManager.allowRTL(true);
     });
 
-    it('does not auto-flip', () => {
-      expect(i18nStyle(initial)).toEqual(initial);
+    test('does not auto-flip', () => {
+      expect(i18nStyle(style)).toMatchSnapshot();
     });
-    it('normalizes properties', () => {
-      expect(i18nStyle(initialNoI18n)).toEqual(initial);
+    test('normalizes properties', () => {
+      expect(i18nStyle(styleNoI18n)).toMatchSnapshot();
     });
   });
 
@@ -80,11 +58,11 @@ describe('apis/StyleSheet/i18nStyle', () => {
       I18nManager.forceRTL(false);
     });
 
-    it('does auto-flip', () => {
-      expect(i18nStyle(initial)).toEqual(expected);
+    test('does auto-flip', () => {
+      expect(i18nStyle(style)).toMatchSnapshot();
     });
-    it('normalizes properties', () => {
-      expect(i18nStyle(initialNoI18n)).toEqual(initial);
+    test('normalizes properties', () => {
+      expect(i18nStyle(styleNoI18n)).toMatchSnapshot();
     });
   });
 });

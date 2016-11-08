@@ -3,8 +3,8 @@
 import expandStyle from '../expandStyle';
 
 describe('apis/StyleSheet/expandStyle', () => {
-  it('shortform -> longform', () => {
-    const initial = {
+  test('shortform -> longform', () => {
+    const style = {
       borderStyle: 'solid',
       boxSizing: 'border-box',
       borderBottomColor: 'white',
@@ -15,27 +15,10 @@ describe('apis/StyleSheet/expandStyle', () => {
       margin: 10
     };
 
-    const expected = {
-      borderBottomStyle: 'solid',
-      borderLeftStyle: 'solid',
-      borderRightStyle: 'solid',
-      boxSizing: 'border-box',
-      borderBottomColor: 'white',
-      borderTopStyle: 'solid',
-      borderTopWidth: '0px',
-      borderLeftWidth: '0px',
-      borderRightWidth: '0px',
-      borderBottomWidth: '1px',
-      marginTop: '50px',
-      marginBottom: '25px',
-      marginLeft: '10px',
-      marginRight: '10px'
-    };
-
-    expect(expandStyle(initial)).toEqual(expected);
+    expect(expandStyle(style)).toMatchSnapshot();
   });
 
-  it('textAlignVertical', () => {
+  test('textAlignVertical', () => {
     const initial = {
       textAlignVertical: 'center'
     };
@@ -47,7 +30,7 @@ describe('apis/StyleSheet/expandStyle', () => {
     expect(expandStyle(initial)).toEqual(expected);
   });
 
-  it('flex', () => {
+  test('flex', () => {
     const value = 10;
 
     const initial = {

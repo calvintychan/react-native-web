@@ -1,54 +1,46 @@
 /* eslint-env jasmine, jest */
 
-import includes from 'lodash/includes';
 import React from 'react';
+import renderer from 'react-test-renderer';
 import View from '../';
-import { mount, shallow } from 'enzyme';
+
+jest.mock('react-dom');
 
 describe('components/View', () => {
   describe('rendered element', () => {
-    it('is a "div" by default', () => {
-      const view = shallow(<View />);
-      expect(view.is('div')).toEqual(true);
+    test('is a "div" by default', () => {
+      const component = renderer.create(<View />);
+      expect(component.toJSON()).toMatchSnapshot();
     });
 
-    it('is a "span" when inside <View accessibilityRole="button" />', () => {
-      const view = mount(<View accessibilityRole='button'><View /></View>);
-      expect(view.find('span').length).toEqual(1);
+    test('is a "span" when inside <View accessibilityRole="button" />', () => {
+      const component = renderer.create(<View accessibilityRole='button'><View /></View>);
+      expect(component.toJSON()).toMatchSnapshot();
     });
   });
 
-  it('prop "children"', () => {
+  test('prop "children"', () => {
     const children = <View testID='1' />;
-    const view = shallow(<View>{children}</View>);
-    expect(view.prop('children')).toEqual(children);
+    const component = renderer.create(<View>{children}</View>);
+    expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('prop "onLayout"', (done) => {
-    mount(<View onLayout={onLayout} />);
-    function onLayout(e) {
-      const { layout } = e.nativeEvent;
-      expect(layout).toEqual({ x: 0, y: 0, width: 0, height: 0 });
-      done();
-    }
+  test('prop "pointerEvents"', () => {
+    const component = renderer.create(<View pointerEvents='box-only' />);
+    expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('prop "pointerEvents"', () => {
-    const view = shallow(<View pointerEvents='box-only' />);
-    expect(includes(view.prop('className'), '__style_pebo') === true).toBeTruthy();
-  });
+  test('prop "style"', () => {
+    let component = renderer.create(<View />);
+    expect(component.toJSON()).toMatchSnapshot();
 
-  it('prop "style"', () => {
-    const view = shallow(<View />);
-    expect(view.prop('style').flexShrink).toEqual(0);
+    component = renderer.create(<View style={{ flex: 1 }} />);
+    expect(component.toJSON()).toMatchSnapshot();
 
-    const flexView = shallow(<View style={{ flex: 1 }} />);
-    expect(flexView.prop('style').flexShrink).toEqual(1);
+    component = renderer.create(<View style={{ flexShrink: 1 }} />);
+    expect(component.toJSON()).toMatchSnapshot();
 
-    const flexShrinkView = shallow(<View style={{ flexShrink: 1 }} />);
-    expect(flexShrinkView.prop('style').flexShrink).toEqual(1);
-
-    const flexAndShrinkView = shallow(<View style={{ flex: 1, flexShrink: 2 }} />);
-    expect(flexAndShrinkView.prop('style').flexShrink).toEqual(2);
+    component = renderer.create(<View style={{ flex: 1, flexShrink: 2 }} />);
+    expect(component.toJSON()).toMatchSnapshot();
   });
 });

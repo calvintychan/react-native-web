@@ -19,20 +19,21 @@ const waterfall = (fns, cb) => {
   _waterfall();
 };
 
+const obj = {};
+const mockLocalStorage = {
+  getItem(key) {
+    return obj[key];
+  },
+  setItem(key, value) {
+    obj[key] = value;
+  }
+};
+const originalLocalStorage = window.localStorage;
+
 describe('apis/AsyncStorage', () => {
   describe('mergeLocalStorageItem', () => {
-    it('should have same behavior as react-native', (done) => {
-      const originalLocalStorage = window.localStorage;
-      const obj = {};
-      window.localStorage = {
-        getItem(key) {
-          return obj[key];
-        },
-        setItem(key, value) {
-          obj[key] = value;
-        }
-      };
-
+    test('should have same behavior as react-native', (done) => {
+      window.localStorage = mockLocalStorage;
       // https://facebook.github.io/react-native/docs/asyncstorage.html
       const UID123_object = {
         name: 'Chris',
@@ -43,6 +44,7 @@ describe('apis/AsyncStorage', () => {
         age: 31,
         traits: { eyes: 'blue', shoe_size: 10 }
       };
+
       waterfall([
         (cb) => {
           AsyncStorage.setItem('UID123', JSON.stringify(UID123_object))
@@ -63,11 +65,7 @@ describe('apis/AsyncStorage', () => {
         }
       ], (err, result) => {
         expect(err).toEqual(null);
-        expect(result).toEqual({
-          'name': 'Chris', 'age': 31, 'traits': {
-            'shoe_size': 10, 'hair': 'brown', 'eyes': 'blue'
-          }
-        });
+        expect(result).toMatchSnapshot();
         window.localStorage = originalLocalStorage;
         done();
       });

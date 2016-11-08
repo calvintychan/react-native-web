@@ -3,7 +3,7 @@
 import processTransform from '../processTransform';
 
 describe('apis/StyleSheet/processTransform', () => {
-  it('transform', () => {
+  test('transform', () => {
     const style = {
       transform: [
         { scaleX: 20 },
@@ -15,7 +15,7 @@ describe('apis/StyleSheet/processTransform', () => {
     expect(processTransform(style)).toEqual({ transform: 'scaleX(20) translateX(20px) rotate(20deg)' });
   });
 
-  it('transformMatrix', () => {
+  test('transformMatrix', () => {
     const style = {
       transformMatrix: [ 1, 2, 3, 4, 5, 6 ]
     };

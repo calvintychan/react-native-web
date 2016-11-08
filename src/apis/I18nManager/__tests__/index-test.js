@@ -8,12 +8,12 @@ describe('apis/I18nManager', () => {
       I18nManager.setPreferredLanguageRTL(false);
     });
 
-    it('is "false" by default', () => {
+    test('is "false" by default', () => {
       expect(I18nManager.isRTL).toEqual(false);
       expect(document.documentElement.getAttribute('dir')).toEqual('ltr');
     });
 
-    it('is "true" when forced', () => {
+    test('is "true" when forced', () => {
       I18nManager.forceRTL(true);
       expect(I18nManager.isRTL).toEqual(true);
       expect(document.documentElement.getAttribute('dir')).toEqual('rtl');
@@ -30,12 +30,12 @@ describe('apis/I18nManager', () => {
       I18nManager.setPreferredLanguageRTL(false);
     });
 
-    it('is "true" by default', () => {
+    test('is "true" by default', () => {
       expect(I18nManager.isRTL).toEqual(true);
       expect(document.documentElement.getAttribute('dir')).toEqual('rtl');
     });
 
-    it('is "false" when not allowed', () => {
+    test('is "false" when not allowed', () => {
       I18nManager.allowRTL(false);
       expect(I18nManager.isRTL).toEqual(false);
       expect(document.documentElement.getAttribute('dir')).toEqual('ltr');

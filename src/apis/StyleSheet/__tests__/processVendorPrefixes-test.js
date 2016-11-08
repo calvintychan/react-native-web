@@ -3,7 +3,7 @@
 import processVendorPrefixes from '../processVendorPrefixes';
 
 describe('apis/StyleSheet/processVendorPrefixes', () => {
-  it('handles array values', () => {
+  test('handles array values', () => {
     const style = {
       display: [ '-webkit-flex', 'flex' ]
     };

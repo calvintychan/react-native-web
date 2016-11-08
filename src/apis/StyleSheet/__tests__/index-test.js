@@ -9,39 +9,39 @@ describe('apis/StyleSheet', () => {
     StyleSheet._reset();
   });
 
-  it('absoluteFill', () => {
+  test('absoluteFill', () => {
     expect(Number.isInteger(StyleSheet.absoluteFill) === true).toBeTruthy();
   });
 
-  it('absoluteFillObject', () => {
+  test('absoluteFillObject', () => {
     expect(isPlainObject(StyleSheet.absoluteFillObject) === true).toBeTruthy();
   });
 
   describe('create', () => {
-    it('replaces styles with numbers', () => {
+    test('replaces styles with numbers', () => {
       const style = StyleSheet.create({ root: { opacity: 1 } });
       expect(Number.isInteger(style.root) === true).toBeTruthy();
     });
 
-    it('renders a style sheet in the browser', () => {
+    test('renders a style sheet in the browser', () => {
       StyleSheet.create({ root: { color: 'red' } });
       expect(document.getElementById('__react-native-style').textContent).toEqual(getDefaultStyleSheet());
     });
   });
 
-  it('flatten', () => {
+  test('flatten', () => {
     expect(typeof StyleSheet.flatten === 'function').toBeTruthy();
   });
 
-  it('hairlineWidth', () => {
+  test('hairlineWidth', () => {
     expect(Number.isInteger(StyleSheet.hairlineWidth) === true).toBeTruthy();
   });
 
-  it('render', () => {
+  test('render', () => {
     expect(StyleSheet.render().props.dangerouslySetInnerHTML.__html).toEqual(getDefaultStyleSheet());
   });
 
-  it('resolve', () => {
+  test('resolve', () => {
     expect(StyleSheet.resolve({
       className: 'test',
       style: {
@@ -49,13 +49,6 @@ describe('apis/StyleSheet', () => {
         opacity: 1,
         pointerEvents: 'box-none'
       }
-    })).toEqual({
-      className: 'test __style_df __style_pebn',
-      style: {
-        display: null,
-        opacity: 1,
-        pointerEvents: null
-      }
-    });
+    })).toMatchSnapshot();
   });
 });

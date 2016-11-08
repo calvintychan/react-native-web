@@ -10,18 +10,18 @@ describe('apis/AppState', () => {
   });
 
   describe('addEventListener', () => {
-    it('throws if the provided "eventType" is not supported', () => {
+    test('throws if the provided "eventType" is not supported', () => {
       expect(() => AppState.addEventListener('foo', handler)).toThrow();
       expect(() => AppState.addEventListener('change', handler)).not.toThrow();
     });
   });
 
   describe('removeEventListener', () => {
-    it('throws if the handler is not registered', () => {
+    test('throws if the handler is not registered', () => {
       expect(() => AppState.removeEventListener('change', handler)).toThrow();
     });
 
-    it('throws if the provided "eventType" is not supported', () => {
+    test('throws if the provided "eventType" is not supported', () => {
       AppState.addEventListener('change', handler);
       expect(() => AppState.removeEventListener('foo', handler)).toThrow();
       expect(() => AppState.removeEventListener('change', handler)).not.toThrow();

@@ -3,7 +3,7 @@
 import processTextShadow from '../processTextShadow';
 
 describe('apis/StyleSheet/processTextShadow', () => {
-  it('textShadowOffset', () => {
+  test('textShadowOffset', () => {
     const style = {
       textShadowColor: 'red',
       textShadowOffset: { width: 2, height: 2 },

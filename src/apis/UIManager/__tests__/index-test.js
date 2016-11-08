@@ -24,7 +24,7 @@ describe('apis/UIManager', () => {
   });
 
   describe('measure', () => {
-    it('provides correct layout to callback', () => {
+    test('provides correct layout to callback', () => {
       const node = createNode({ height: '5000px', left: '100px', position: 'relative', top: '100px', width: '5000px' });
       document.body.appendChild(node);
 
@@ -58,7 +58,7 @@ describe('apis/UIManager', () => {
   });
 
   describe('measureLayout', () => {
-    it('provides correct layout to onSuccess callback', () => {
+    test('provides correct layout to onSuccess callback', () => {
       const node = createNode({ height: '10px', width: '10px' });
       const middle = createNode({ padding: '20px' });
       const context = createNode({ padding: '20px' });
@@ -85,7 +85,7 @@ describe('apis/UIManager', () => {
   });
 
   describe('measureInWindow', () => {
-    it('provides correct layout to callback', () => {
+    test('provides correct layout to callback', () => {
       const node = createNode({ height: '10px', width: '10px' });
       const middle = createNode({ padding: '20px' });
       const context = createNode({ padding: '20px' });
@@ -119,7 +119,7 @@ describe('apis/UIManager', () => {
       }
     };
 
-    it('add new className to existing className', () => {
+    test('add new className to existing className', () => {
       const node = createNode();
       node.className = 'existing';
       const props = { className: 'extra' };
@@ -127,14 +127,14 @@ describe('apis/UIManager', () => {
       expect(node.getAttribute('class')).toEqual('existing extra');
     });
 
-    it('adds correct DOM styles to existing style', () => {
+    test('adds correct DOM styles to existing style', () => {
       const node = createNode({ color: 'red' });
       const props = { style: { marginVertical: 0, opacity: 0 } };
       UIManager.updateView(node, props, componentStub);
       expect(node.getAttribute('style')).toEqual('color: red; margin-top: 0px; margin-bottom: 0px; opacity: 0;');
     });
 
-    it('replaces input and textarea text', () => {
+    test('replaces input and textarea text', () => {
       const node = createNode();
       node.value = 'initial';
       const textProp = { text: 'expected-text' };
@@ -147,7 +147,7 @@ describe('apis/UIManager', () => {
       expect(node.value).toEqual('expected-value');
     });
 
-    it('sets other attribute values', () => {
+    test('sets other attribute values', () => {
       const node = createNode();
       const props = { 'aria-level': '4', 'data-of-type': 'string' };
       UIManager.updateView(node, props);

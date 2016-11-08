@@ -6,7 +6,7 @@ import React from 'react';
 const component = () => <div />;
 
 describe('apis/AppRegistry/renderApplication', () => {
-  it('prerenderApplication', () => {
+  test('prerenderApplication', () => {
     const { html, styleElement } = prerenderApplication(component, {});
 
     expect(html.indexOf('<div ') > -1).toBeTruthy();

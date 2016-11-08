@@ -11,18 +11,18 @@ describe('apis/NetInfo', () => {
     });
 
     describe('addEventListener', () => {
-      it('throws if the provided "eventType" is not supported', () => {
+      test('throws if the provided "eventType" is not supported', () => {
         expect(() => NetInfo.isConnected.addEventListener('foo', handler)).toThrow();
         expect(() => NetInfo.isConnected.addEventListener('change', handler)).not.toThrow();
       });
     });
 
     describe('removeEventListener', () => {
-      it('throws if the handler is not registered', () => {
+      test('throws if the handler is not registered', () => {
         expect(() => NetInfo.isConnected.removeEventListener('change', handler)).toThrow;
       });
 
-      it('throws if the provided "eventType" is not supported', () => {
+      test('throws if the provided "eventType" is not supported', () => {
         NetInfo.isConnected.addEventListener('change', handler);
         expect(() => NetInfo.isConnected.removeEventListener('foo', handler)).toThrow;
         expect(() => NetInfo.isConnected.removeEventListener('change', handler)).not.toThrow;
