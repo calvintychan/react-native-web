@@ -89,7 +89,7 @@ describe('components/TextInput', () => {
     let input = findNativeInput(shallow(<TextInput />));
     expect(input.prop('maxLength')).toEqual(undefined);
     input = findNativeInput(shallow(<TextInput maxLength={10} />));
-    expect(input.prop('maxLength')).toEqual('10');
+    expect(input.prop('maxLength')).toEqual(10);
   });
 
   it('prop "maxNumberOfLines"', () => {

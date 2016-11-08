@@ -28,6 +28,8 @@ describe('apis/UIManager', () => {
       const node = createNode({ height: '5000px', left: '100px', position: 'relative', top: '100px', width: '5000px' });
       document.body.appendChild(node);
 
+      node.getBoundingClientRect = jest.fn(() => ({ width: 5000, height: 5000, top: 100, left: 100 }));
+
       UIManager.measure(node, (x, y, width, height, pageX, pageY) => {
         expect(x).toEqual(100);
         expect(y).toEqual(100);
@@ -39,6 +41,9 @@ describe('apis/UIManager', () => {
 
       // test values account for scroll position
       window.scrollTo(200, 200);
+      node.getBoundingClientRect = jest.fn(() => ({ width: 5000, height: 5000, top: -100, left: -100 }));
+      node.parentNode.getBoundingClientRect = jest.fn(() => ({ top: -200, left: -200 }));
+
       UIManager.measure(node, (x, y, width, height, pageX, pageY) => {
         expect(x).toEqual(100);
         expect(y).toEqual(100);
@@ -61,6 +66,13 @@ describe('apis/UIManager', () => {
       context.appendChild(middle);
       document.body.appendChild(context);
 
+      node.getBoundingClientRect = jest.fn(() => ({
+        width: 10,
+        height: 10,
+        top: 40,
+        left: 40
+      }));
+
       UIManager.measureLayout(node, context, () => {}, (x, y, width, height) => {
         expect(x).toEqual(40);
         expect(y).toEqual(40);
@@ -80,6 +92,13 @@ describe('apis/UIManager', () => {
       middle.appendChild(node);
       context.appendChild(middle);
       document.body.appendChild(context);
+
+      node.getBoundingClientRect = jest.fn(() => ({
+        width: 10,
+        height: 10,
+        top: 40,
+        left: 40
+      }));
 
       UIManager.measureInWindow(node, (x, y, width, height) => {
         expect(x).toEqual(40);

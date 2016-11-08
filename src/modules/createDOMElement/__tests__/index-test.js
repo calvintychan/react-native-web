@@ -38,10 +38,10 @@ describe('modules/createDOMElement', () => {
   it('prop "accessible"', () => {
     // accessible (implicit)
     let element = shallow(createDOMElement('span', {}));
-    expect(element.prop('aria-hidden')).toEqual(null);
+    expect(element.prop('aria-hidden')).toEqual(undefined);
     // accessible (explicit)
     element = shallow(createDOMElement('span', { accessible: true }));
-    expect(element.prop('aria-hidden')).toEqual(null);
+    expect(element.prop('aria-hidden')).toEqual(undefined);
     // not accessible
     element = shallow(createDOMElement('span', { accessible: false }));
     expect(element.prop('aria-hidden')).toEqual(true);
@@ -50,7 +50,7 @@ describe('modules/createDOMElement', () => {
   it('prop "testID"', () => {
     // no testID
     let element = shallow(createDOMElement('span', {}));
-    expect(element.prop('data-testid')).toEqual(null);
+    expect(element.prop('data-testid')).toEqual(undefined);
     // with testID
     const testID = 'Example.testID';
     element = shallow(createDOMElement('span', { testID }));

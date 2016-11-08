@@ -22,6 +22,17 @@ const waterfall = (fns, cb) => {
 describe('apis/AsyncStorage', () => {
   describe('mergeLocalStorageItem', () => {
     it('should have same behavior as react-native', (done) => {
+      const originalLocalStorage = window.localStorage;
+      const obj = {};
+      window.localStorage = {
+        getItem(key) {
+          return obj[key];
+        },
+        setItem(key, value) {
+          obj[key] = value;
+        }
+      };
+
       // https://facebook.github.io/react-native/docs/asyncstorage.html
       const UID123_object = {
         name: 'Chris',
@@ -57,6 +68,7 @@ describe('apis/AsyncStorage', () => {
             'shoe_size': 10, 'hair': 'brown', 'eyes': 'blue'
           }
         });
+        window.localStorage = originalLocalStorage;
         done();
       });
     });
